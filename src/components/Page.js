@@ -7,6 +7,17 @@ export class Page extends React.Component {
         this.props.getPhotos(year)
     };
 
+    renderButtons = () => {
+        const years = [2018, 2017, 2016, 2015, 2014];
+        return years.map((item, index) => {
+            return (
+                <button key={index} className="btn" onClick={this.onBtnClick}>
+                    {item}
+                </button>
+            )
+        })
+    };
+
     renderTemplate = () => {
         const { photos, isFetching, error } = this.props;
         if (error) {
@@ -26,27 +37,13 @@ export class Page extends React.Component {
     };
 
     render() {
-        const {year, photos} = this.props;
+        const { year, photos } = this.props;
         return (
             <div className="ib page">
-                <p>
-                    <button className="btn" onClick={this.onBtnClick}>
-                        2018
-                    </button>{' '}
-                    <button className="btn" onClick={this.onBtnClick}>
-                        2017
-                    </button>{' '}
-                    <button className="btn" onClick={this.onBtnClick}>
-                        2016
-                    </button>{' '}
-                    <button className="btn" onClick={this.onBtnClick}>
-                        2015
-                    </button>{' '}
-                    <button className="btn" onClick={this.onBtnClick}>
-                        2014
-                    </button>{' '}
-                </p>
-                <h3>{year} год [{photos.length}]</h3>
+                <p>{this.renderButtons()}</p>
+                <h3>
+                    {year} год [{photos.length}]
+                </h3>
                 {this.renderTemplate()}
             </div>
         )
